@@ -1,0 +1,40 @@
+@startuml
+
+title Classes - Mastermind
+
+class Mastermind {
+  +void main(String[] args)
+}
+class Play {
+    -int attempts
+    -Combination[] combinationsAttempts
+    +Play()
+    +void start()
+    +Combination askAttent()
+    -void showAttents()
+    -boolean isValidCombi(String combi)
+    -boolean isWrongColorCombi(String combi)
+    -boolean isValidColor(char color)
+}
+
+
+class Combination{
+    -char[] positions;
+    +Combination()
+    +Combination(String positions)
+    +int blacks(Combination combination)
+    +int whites(Combination combination)
+    -void combinationGenerator()
+    -char numToColor(int num)
+    -int colorIsPresentIn(char color)
+}
+
+class GestorIO{}
+
+Mastermind"1"*-->"1..n"Play
+Play"1"*-->"1..10"Combination
+Mastermind "1" o-->"1"GestorIO
+Play "1" o-->"1"GestorIO
+
+
+@enduml
