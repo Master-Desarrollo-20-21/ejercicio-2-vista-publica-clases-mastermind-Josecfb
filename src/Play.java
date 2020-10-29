@@ -17,19 +17,20 @@ public class Play {
 			showAttents();
 			proposed=askAttent();
 			System.out.println(proposed.blacks(secret)+" blacks and "+proposed.whites(secret)+" whites");
-			this.attempts++;
 			this.combinationsAttempts[attempts]=proposed;
-		}while (this.attempts<=0 && proposed.blacks(this.secret)<4);
+			this.attempts++;
+		}while (this.attempts<=10 && proposed.blacks(this.secret)!=4);
 	}
 	
 	private void showAttents() {
-		for (int i=0;i<this.attempts;i++) {
+		System.out.println(attempts+" attempt(s):\nxxxx");
+		for (int i=0;i<this.attempts-1;i++) {
+			combinationsAttempts[i].muestra();
 			
 		}
 	}
 	
 	public Combination askAttent() {
-		this.attempts++;
 		GestorIO gestorIO=new GestorIO();
 		String proposedCombination;
 		do {
