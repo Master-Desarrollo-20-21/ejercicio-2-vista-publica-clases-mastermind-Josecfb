@@ -5,7 +5,7 @@ public class Mastermind {
 		GestorIO gestorIO = new GestorIO();	
 		char resume;
 		do {
-			Play play=new Play();
+			Game play=new Game();
 			play.start();
 			gestorIO.out("Resume (Y/N");
 			resume=gestorIO.inChar();			

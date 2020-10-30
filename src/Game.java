@@ -1,10 +1,10 @@
-public class Play {
+public class Game {
 	private int attempts;
 	private Combination secret;
 	private Combination[] combinationsAttempts;
 	private final String POSIBLE_COLORS="RBYGOP";
 	
-	public Play() {
+	public Game() {
 		this.attempts=0;
 		this.secret=new Combination();
 		this.combinationsAttempts=new Combination[10];
