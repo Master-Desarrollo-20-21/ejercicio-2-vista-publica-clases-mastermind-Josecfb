@@ -1,25 +1,24 @@
 public class Game {
 	private int attempts;
-	private Combination secret;
-	private Combination[] combinationsAttempts;
-	private final String POSIBLE_COLORS="RBYGOP";
-	
+	private SecretCombination secret;
+	private ProposedCombination[] combinationsAttempts;
+
 	public Game() {
 		this.attempts=0;
-		this.secret=new Combination();
-		this.combinationsAttempts=new Combination[10];
+		this.secret=new SecretCombination();
+		this.combinationsAttempts=new ProposedCombination[10];
 		secret.muestra();
 		
 	}
 	public void start() {
-		Combination proposed=null;
+		ProposedCombination proposed;
 		do  {
 			showAttents();
 			proposed=askAttent();
-			System.out.println(proposed.blacks(secret)+" blacks and "+proposed.whites(secret)+" whites");
+			System.out.println(secret.blacks(proposed)+" blacks and "+secret.whites(proposed)+" whites");
 			this.combinationsAttempts[attempts]=proposed;
 			this.attempts++;
-		}while (this.attempts<=10 && proposed.blacks(this.secret)!=4);
+		}while (this.attempts<=10 && secret.blacks(proposed)!=4);
 	}
 	
 	private void showAttents() {
@@ -30,44 +29,16 @@ public class Game {
 		}
 	}
 	
-	public Combination askAttent() {
+	public ProposedCombination askAttent() {
 		GestorIO gestorIO=new GestorIO();
-		String proposedCombination;
+		ProposedCombination proposedCombination;
 		do {
 			System.out.println("Propose a combination: ");
-			proposedCombination=gestorIO.inString().toUpperCase();
-		}while (!isValidCombi(proposedCombination));
-		Combination combination = new Combination(proposedCombination) ;
-		combination.muestra();
-		return combination;
+			proposedCombination=new ProposedCombination(gestorIO.inString().toUpperCase());
+		}while (!proposedCombination.isValidCombi());
+		proposedCombination.muestra();
+		return proposedCombination;
 	}
 	
-	private boolean isValidCombi(String combi) {
-		if (combi.length()!=4) {
-			System.out.println("Wrong proposed combination length");
-			return false;
-		}
-		if (isWrongColorCombi(combi)) {
-			System.out.println("Wrong colors, they must be: rbygop");
-			return false;
-		}
-		return true;
-	}
-	
-	private boolean isWrongColorCombi(String combi) {
-		for (int i=0;i<combi.length();i++)
-			if (!isValidColor(combi.charAt(i)))
-				return true;
-		return false;
-	}
-	
-	
-	private boolean isValidColor(char color) {
-		for (int i=0; i<POSIBLE_COLORS.length();i++) {
-			if(color==POSIBLE_COLORS.charAt(i)) {
-				return true;
-			}
-		}
-		return false;
-	}
+
 }
